@@ -116,6 +116,7 @@ SNode* createLimitNode(SAstCreateContext* pCxt, const SToken* pLimit, const STok
 SNode* createOrderByExprNode(SAstCreateContext* pCxt, SNode* pExpr, EOrder order, ENullOrder nullOrder);
 SNode* createSessionWindowNode(SAstCreateContext* pCxt, SNode* pCol, SNode* pGap);
 SNode* createStateWindowNode(SAstCreateContext* pCxt, SNode* pExpr);
+SNode* createEventWindowNode(SAstCreateContext* pCxt, SNode* pStartCond, SNode* pEndCond);
 SNode* createIntervalWindowNode(SAstCreateContext* pCxt, SNode* pInterval, SNode* pOffset, SNode* pSliding,
                                 SNode* pFill);
 SNode* createFillNode(SAstCreateContext* pCxt, EFillMode mode, SNode* pValues);
@@ -196,7 +197,7 @@ SNode* createDropComponentNodeStmt(SAstCreateContext* pCxt, ENodeType type, cons
 SNode* createCreateTopicStmtUseQuery(SAstCreateContext* pCxt, bool ignoreExists, const SToken* pTopicName,
                                      SNode* pQuery);
 SNode* createCreateTopicStmtUseDb(SAstCreateContext* pCxt, bool ignoreExists, const SToken* pTopicName,
-                                  const SToken* pSubDbName, bool withMeta);
+                                  SToken* pSubDbName, bool withMeta);
 SNode* createCreateTopicStmtUseTable(SAstCreateContext* pCxt, bool ignoreExists, const SToken* pTopicName,
                                      SNode* pRealTable, bool withMeta);
 SNode* createDropTopicStmt(SAstCreateContext* pCxt, bool ignoreNotExists, const SToken* pTopicName);
