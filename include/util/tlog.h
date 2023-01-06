@@ -86,6 +86,8 @@ void taosPrintLongString(const char *flags, ELogLevel level, int32_t dflag, cons
 bool taosAssertDebug(bool condition, const char *file, int32_t line, const char *format, ...);
 bool taosAssertRelease(bool condition);
 
+void taosFatalDebug(const char *file, int32_t line, const char *format, ...);
+
 // Disable all asserts that may compromise the performance.
 #if defined DISABLE_ASSERT
 #define ASSERT(condition)
@@ -98,6 +100,9 @@ bool taosAssertRelease(bool condition);
 #define ASSERT(condition) taosAssertDebug(condition, __FILE__, __LINE__, "assert info not provided")
 #endif
 #endif
+
+// fatal
+#define FATAL(...) taosFatalDebug(__FILE__, __LINE__, __VA_ARGS__)
 
 // clang-format off
 #define uFatal(...) { if (uDebugFlag & DEBUG_FATAL) { taosPrintLog("UTL FATAL", DEBUG_FATAL, tsLogEmbedded ? 255 : uDebugFlag, __VA_ARGS__); }}

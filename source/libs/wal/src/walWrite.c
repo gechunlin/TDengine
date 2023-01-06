@@ -538,18 +538,14 @@ static FORCE_INLINE int32_t walWriteImpl(SWal *pWal, int64_t index, tmsg_t msgTy
 END:
   // recover in a reverse order
   if (taosFtruncateFile(pWal->pLogFile, offset) < 0) {
-    wFatal("vgId:%d, failed to ftruncate logfile to offset:%" PRId64 " during recovery due to %s", pWal->cfg.vgId,
-           offset, strerror(errno));
-    terrno = TAOS_SYSTEM_ERROR(errno);
-    ASSERT(0 && "failed to recover from error");
+    FATAL("vgId:%d, failed to ftruncate logfile to offset:%" PRId64 " during recovery due to %s", pWal->cfg.vgId,
+          offset, strerror(errno));
   }
 
   int64_t idxOffset = (index - pFileInfo->firstVer) * sizeof(SWalIdxEntry);
   if (taosFtruncateFile(pWal->pIdxFile, idxOffset) < 0) {
-    wFatal("vgId:%d, failed to ftruncate idxfile to offset:%" PRId64 "during recovery due to %s", pWal->cfg.vgId,
-           idxOffset, strerror(errno));
-    terrno = TAOS_SYSTEM_ERROR(errno);
-    ASSERT(0 && "failed to recover from error");
+    FATAL("vgId:%d, failed to ftruncate idxfile to offset:%" PRId64 " during recovery due to %s", pWal->cfg.vgId,
+          idxOffset, strerror(errno));
   }
   return -1;
 }
